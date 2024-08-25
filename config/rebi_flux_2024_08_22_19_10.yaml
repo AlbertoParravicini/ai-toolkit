@@ -1,0 +1,72 @@
+job: extension
+config:
+  name: rebi_flux_2024_08_22_19_10
+  process:
+  - type: sd_trainer
+    training_folder: output
+    performance_log_every: 1000
+    device: cuda:0
+    network:
+      type: lora
+      linear: 128
+      linear_alpha: 128
+    save:
+      dtype: float16
+      save_every: 500
+      max_step_saves_to_keep: 4
+    datasets:
+    - folder_path: /home/wizard/repositories/diffusers/examples/dreambooth/rebi_10_cropped
+      caption_ext: txt
+      caption_dropout_rate: 0
+      shuffle_tokens: false
+      cache_latents_to_disk: true
+      resolution:
+      - 512
+      - 768
+      - 1024
+      default_caption: A photo of <dvdpgl>
+    train:
+      batch_size: 1
+      steps: 3000
+      gradient_accumulation_steps: 1
+      train_unet: true
+      train_text_encoder: false
+      gradient_checkpointing: true
+      noise_scheduler: flowmatch
+      optimizer: adamw8bit
+      lr: 0.0001
+      skip_first_sample: false
+      ema_config:
+        use_ema: false
+        ema_decay: 0.99
+      dtype: bf16
+    model:
+      name_or_path: black-forest-labs/FLUX.1-dev
+      is_flux: true
+      quantize: false
+    sample:
+      sampler: flowmatch
+      sample_every: 500
+      width: 1024
+      height: 1024
+      prompts:
+      - RAW portrait of <dvdpgl> in Cappadocia with hot hair balloons, colorful hot
+        hair balloons in the background, wearing blue and white striped shirt, full
+        body shot, front view
+      - RAW portrait of <dvdpgl> in Cappadocia with hot hair balloons, colorful hot
+        hair balloons in the background, wearing blue and white striped shirt, full
+        body shot, front view
+      - RAW portrait of <dvdpgl> in Cappadocia with hot hair balloons, colorful hot
+        hair balloons in the background, wearing blue and white striped shirt, full
+        body shot, front view
+      - RAW portrait of <dvdpgl> in Cappadocia with hot hair balloons, colorful hot
+        hair balloons in the background, wearing blue and white striped shirt, full
+        body shot, front view
+      neg: ''
+      seed: 42
+      walk_seed: true
+      guidance_scale: 4
+      sample_steps: 20
+meta:
+  name: rebi_flux_2024_08_22_19_10
+  version: '1.0'
