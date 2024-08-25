@@ -27,6 +27,7 @@ def print_once(msg):
         print(msg)
         printed_messages.append(msg)
 
+from PIL import Image
 
 class FileItemDTO(
     LatentCachingFileItemDTOMixin,
@@ -49,13 +50,13 @@ class FileItemDTO(
             w, h = size_database[filename]
         else:
             # process width and height
-            try:
-                w, h = image_utils.get_image_size(self.path)
-            except image_utils.UnknownImageFormat:
-                print_once(f'Warning: Some images in the dataset cannot be fast read. ' + \
-                           f'This process is faster for png, jpeg')
-                img = exif_transpose(Image.open(self.path))
-                h, w = img.size
+            # try:
+            #     w, h = image_utils.get_image_size(self.path)
+            # except image_utils.UnknownImageFormat:
+            #     print_once(f'Warning: Some images in the dataset cannot be fast read. ' + \
+            #                f'This process is faster for png, jpeg')
+            img = exif_transpose(Image.open(self.path))
+            h, w = img.size
             size_database[filename] = (w, h)
         self.width: int = w
         self.height: int = h

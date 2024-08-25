@@ -41,9 +41,11 @@ def main():
 
     # require at lease one config file
     parser.add_argument(
-        'config_file_list',
+        "-c",
+        '--config_file_list',
         nargs='+',
         type=str,
+        default=["config/train_lora_flux_alp.yaml"],
         help='Name of config file (eg: person_v1 for config/person_v1.json/yaml), or full path if it is not in config folder, you can pass multiple config files and run them all sequentially'
     )
 

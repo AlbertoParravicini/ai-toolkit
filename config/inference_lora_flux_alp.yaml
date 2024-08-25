@@ -1,0 +1,32 @@
+---
+
+job: generate # tells the runner what to do
+config:
+  name: "generate" # this is not really used anywhere currently but required by runner
+  process:
+    # process 1
+    - type: to_folder  # process images to a folder
+      output_folder: "output/inference_lora_flux_alp"
+      device: cuda:0 # cpu, cuda:0, etc
+      generate:
+        sampler: "flowmatch"
+        width: 1024
+        height: 1024
+        neg: ""
+        seed: 44 # -1 is random
+        guidance_scale: 3.5
+        sample_steps: 40
+        ext: ".jpeg"
+        prompt_file: true
+        prompts:
+          - "A photo of <dvdpgl> holding a cute dachshund, gentle lighting, pastel colors, low contrast, bokeh background. Both <dvdpgl> and the dog are smiling."
+          - "Minimalist photography portrait of <dvdpgl>, minimalist, wearing a tiger hip hop bomber jacket and a t-shirt, purple background, low saturation."
+          - "A high-key photo of <dvdpgl> dressed as a colorful clown amd holding an inflatable banana. Flash photography, smiling, with glasses"
+          - "A photo of <dvdpgl> <dvdpgl> as a homeless person in the New York suburbs. Scrappy neighbourhood in the background, slightly blurry. A barrel on fire. Dirty image, scruffy, gritty, grunge, soft focus"
+          - "<dvdpgl> <dvdpgl> as a clay figure in the style of Wallace and Gromit. Claymation, stop motion, plasticine. Dressed as a farmer, with a herd of clay sheep in the background. Soft lighting, warm colors."
+          - "<dvdpgl> <dvdpgl> with a flying squirrel lying on his head. Dressed in modern Japanese street fashion. Soft lighting, traditional Tokyo lights and street in the background. Slight bokeh effect."
+      model:
+        name_or_path: "black-forest-labs/FLUX.1-dev"
+        lora_path: "/home/wizard/repositories/ai-toolkit/output/alp_flux_2024_08_22_09_10/alp_flux_2024_08_22_09_10.safetensors"
+        is_flux: true
+        dtype: fp16

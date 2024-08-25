@@ -1420,7 +1420,8 @@ class BaseSDTrainProcess(BaseTrainProcess):
                 if self.named_lora:
                     lora_name = f"{lora_name}_LoRA"
 
-                latest_save_path = self.get_latest_save_path(lora_name)
+                # latest_save_path = self.get_latest_save_path(lora_name)
+                latest_save_path = None
                 extra_weights = None
                 if latest_save_path is not None:
                     self.print(f"#### IMPORTANT RESUMING FROM {latest_save_path} ####")
@@ -1434,7 +1435,8 @@ class BaseSDTrainProcess(BaseTrainProcess):
                     sd=self.sd,
                     embed_config=self.embed_config
                 )
-                latest_save_path = self.get_latest_save_path(self.embed_config.trigger)
+                # latest_save_path = self.get_latest_save_path(self.embed_config.trigger)
+                latest_save_path = None
                 # load last saved weights
                 if latest_save_path is not None:
                     self.embedding.load_embedding_from_file(latest_save_path, self.device_torch)

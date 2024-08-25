@@ -113,7 +113,7 @@ class GenerateProcess(BaseProcess):
             for prompt in self.generate_config.prompts:
                 width = self.generate_config.width
                 height = self.generate_config.height
-                prompt = self.clean_prompt(prompt)
+                # prompt = self.clean_prompt(prompt)
 
                 if self.generate_config.size_list is not None:
                     # randomly select a size
